@@ -225,14 +225,14 @@ class Ecobee(object):
                   " climate hold.  Refreshing tokens...")
             self.refresh_tokens()
 
-    def create_vacation(self, index, vacation):
+    def create_vacation(self, index, vacation, coolTarget, heatTarget ):
         ''' create a vacation with name vacation - need other details too '''
         url = 'https://api.ecobee.com/1/thermostat'
         header = {'Content-Type': 'application/json;charset=UTF-8',
                   'Authorization': 'Bearer ' + self.access_token}
         params = {'format': 'json'}
         body = ('{"functions":[{"type":"createVacation","params":{"name":"'
-                + vacation + '"}}],'
+                + vacation + '","coolHoldTemp":"' + coolTarget + '","heatHoldtemp":"' + heatTarget + '"}}],'
                 '"selection":{"selectionType":"registered","selectionMatch":"'
                 '"}}')
         request = requests.post(url, headers=header, params=params, data=body)
